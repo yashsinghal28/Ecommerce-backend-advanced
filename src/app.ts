@@ -25,6 +25,7 @@ const stripeKey = process.env.STRIPE_KEY || "";
 
 connectDB(mongoURI);
 
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
@@ -38,7 +39,13 @@ const app = express();
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://www.ecommercesite.me"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("API Working with /api/v1");
